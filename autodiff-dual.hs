@@ -13,13 +13,19 @@ instance Num a => Num (Value a) where
     fromInteger n = Val (fromInteger n) 0
     negate = fmap negate
 
+instance Fractional a => Fractional (Value a) where
+  (/) (Val u du) (Val v dv) = Val (u /v) ((u * dv + v * du) / v^2)
+  recip (Val u du) = Val (1 / u) (-du / u^2)
+  fromRational r = Val (fromRational r) 0
+
+instance Floating a => Floating (Value a) where
+  pi = Val pi 0
+  exp (Val u du) = Val (exp u) (du * exp u)
+  log (Val u du) = Val (log u) (du / u)
+  sin (Val u du) = Val (sin u) (du * cos u)
+  cos (Val u du) = Val (cos u) (-du * sin u)
+
 -- dual algebra for a few functions
-sin' :: Value Float -> Value Float
-sin' (Val u du) = Val (sin u) (du * cos u)
-
-cos' :: Value Float -> Value Float
-cos' (Val u du) = Val (cos u) (-du * sin u)
-
 pow' :: Value Float -> Float -> Value Float
 pow' (Val u du) n = Val (u ** n) (n * du * (u ** (n - 1)))
 -- .. more functions todo!
