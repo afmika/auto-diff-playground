@@ -2,6 +2,5 @@
 Automatic differentiation playground
 
 ## TODO
-- [x] Dual algebra
-- [ ] Forward autodiff
+- [x] Dual algebra (Forward autodiff implied)
 - [ ] Backward autodiff
