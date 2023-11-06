@@ -13,7 +13,7 @@ instance Num a => Num (Value a) where
     fromInteger n = Val (fromInteger n) 0
     negate = fmap negate
 
--- dual value for a few functions
+-- dual algebra for a few functions
 sin' :: Value Float -> Value Float
 sin' (Val u du) = Val (sin u) (du * cos u)
 
@@ -22,9 +22,7 @@ cos' (Val u du) = Val (cos u) (-du * sin u)
 
 pow' :: Value Float -> Float -> Value Float
 pow' (Val u du) n = Val (u ** n) (n * du * (u ** (n - 1)))
-
--- TODO: more functions
--- ..
+-- .. more functions todo!
 
 
 -- utils
@@ -33,6 +31,8 @@ dual x = Val x 0
 
 eps = Val 0 0.001 :: Value Float
 
+
+-- definitions
 f :: (Value Float, Value Float) -> Value Float
 f (x, y) = 4 * x - (pow' x 2 + pow' y 2)
 
@@ -43,9 +43,9 @@ df (x, y) = (
     )
 
 {-
-since f = 4 - (x^2 + y^2)
-then Jacobian = [4 - 2x, 2y]
-critical point [2 0]
+    Since f = 4 - (x^2 + y^2)
+    Jacobian = [4-2x  -2y]
+    Critical point at [2 0]
 -}
 
 main = do
