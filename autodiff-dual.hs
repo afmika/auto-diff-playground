@@ -39,14 +39,16 @@ seed = Val 0 1 :: Value Float
 
 
 -- definitions
-f :: (Value Float, Value Float) -> Value Float
+
+type Dim2Function = (Value Float, Value Float) -> Value Float
+
+f :: Dim2Function
 f (x, y) = 4 * x - (pow' x 2 + pow' y 2)
 
-g :: (Value Float, Value Float) -> Value Float
-g (x, y) = 4 * x - (x^2 + y^2) -- x^n = x * x * x ... * x (so it follows dual(x) * dual(x) * ... )
+g :: Dim2Function
+g (x, y) = 4 * x - (x^2 + y^2) -- x^n = x * x * x * ... * x (so it follows dual(x) * dual(x) * ... )
 
-
-d :: ((Value Float, Value Float) -> Value Float) -> (Value Float, Value Float) -> (Value Float, Value Float)
+d :: Dim2Function -> (Value Float, Value Float) -> (Value Float, Value Float)
 d f (x, y) = (
         -- seed <- dx/dx = 1
         f (x + seed, y),
