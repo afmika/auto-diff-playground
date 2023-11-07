@@ -42,8 +42,12 @@ seed = Val 0 1 :: Value Float
 f :: (Value Float, Value Float) -> Value Float
 f (x, y) = 4 * x - (pow' x 2 + pow' y 2)
 
-df :: (Value Float, Value Float) -> (Value Float, Value Float)
-df (x, y) = (
+g :: (Value Float, Value Float) -> Value Float
+g (x, y) = 4 * x - (x^2 + y^2) -- x^n = x * x * x ... * x (so it follows dual(x) * dual(x) * ... )
+
+
+d :: ((Value Float, Value Float) -> Value Float) -> (Value Float, Value Float) -> (Value Float, Value Float)
+d f (x, y) = (
         -- seed <- dx/dx = 1
         f (x + seed, y),
         -- seed <- dy/dy = 1
@@ -57,6 +61,11 @@ df (x, y) = (
 -}
 
 main = do
-    let (Val _ dx, Val _ dy) = df (dual 2, dual 0)
-    print $ "df/dx = " ++ show dx -- 0
-    print $ "df/dy = " ++ show dy -- 0
+    let (Val _ dx, Val _ dy) = d f (dual 2, dual 0)
+    let (Val _ dx', Val _ dy') = d g (dual 2, dual 0)
+    putStrLn "# With f"
+    putStrLn $ "df/dx = " ++ show dx -- 0
+    putStrLn $ "df/dy = " ++ show dy -- 0
+    putStrLn "# With g (with auto defined ^ operator)"
+    putStrLn $ "df/dx = " ++ show dx' -- 0
+    putStrLn $ "df/dy = " ++ show dy' -- 0
