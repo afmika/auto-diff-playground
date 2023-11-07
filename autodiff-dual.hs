@@ -35,7 +35,7 @@ pow' (Val u du) n = Val (u ** n) (n * du * (u ** (n - 1)))
 dual :: Float -> Value Float
 dual x = Val x 0
 
-eps = Val 0 0.001 :: Value Float
+seed = Val 0 1 :: Value Float
 
 
 -- definitions
@@ -44,8 +44,10 @@ f (x, y) = 4 * x - (pow' x 2 + pow' y 2)
 
 df :: (Value Float, Value Float) -> (Value Float, Value Float)
 df (x, y) = (
-        f (x + eps, y),
-        f (x, y + eps)
+        -- seed <- dx/dx = 1
+        f (x + seed, y),
+        -- seed <- dy/dy = 1
+        f (x, y + seed)
     )
 
 {-
