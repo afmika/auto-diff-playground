@@ -68,6 +68,6 @@ main = do
     putStrLn "# With f"
     putStrLn $ "df/dx = " ++ show dx -- 0
     putStrLn $ "df/dy = " ++ show dy -- 0
-    putStrLn "# With g (with auto defined ^ operator)"
+    putStrLn "# With g (has ^ operator derived from *)"
     putStrLn $ "df/dx = " ++ show dx' -- 0
     putStrLn $ "df/dy = " ++ show dy' -- 0
