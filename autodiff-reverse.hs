@@ -36,13 +36,13 @@ grad seed (BinaryOp op _ c1 c2) = case op of
                     v -> error ("operator " ++ v ++ " not supported")
 
 -- handles 1D for now
-getTotal (Grad g) = g
-getTotal (GradPair g g') = getTotal g + getTotal g'
+eval (Grad g) = g
+eval (GradPair g g') = eval g + eval g'
 
--- df/dx at 2 = 2(2)^3 + 1 = 13
+-- df/dx at 2 = 3(2)^2 + 1 = 13
 f x = x * x * x  + x
 
 main = do
     let g = grad 1 (f 2)
     print $ show g
-    print $ show $ getTotal g -- 13
+    print $ show $ eval g -- 13
