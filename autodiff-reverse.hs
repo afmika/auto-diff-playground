@@ -29,9 +29,9 @@ instance Num a => Num (Value a) where
 
 -- topdown approach
 grad :: Float -> Value Float -> Gradient Float
-grad seed (Val _) = Grad s
+grad seed (Val _) = Grad seed
 grad seed (BinaryOp op _ c1 c2) = case op of
-                    "+" -> GradPair (grad seed c1) (grad s c2)
+                    "+" -> GradPair (grad seed c1) (grad seed c2)
                     "*" -> GradPair (grad (seed * getVal c2) c1) (grad (seed * getVal c1) c2)
                     v -> error ("operator " ++ v ++ " not supported")
 
