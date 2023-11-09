@@ -3,7 +3,8 @@ Automatic differentiation playground
 
 ## TODO
 - [x] Dual algebra (Forward autodiff implied)
-- [ ] Backward autodiff
+- [x] Reverse autodiff 1D
+- [ ] Reverse autodiff generalized
 
 ## Resources
 * https://en.wikipedia.org/wiki/Automatic_differentiation
