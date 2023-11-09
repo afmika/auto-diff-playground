@@ -35,14 +35,14 @@ grad seed (BinaryOp op _ c1 c2) = case op of
                     "*" -> GradPair (grad (seed * getVal c2) c1) (grad (seed * getVal c1) c2)
                     v -> error ("operator " ++ v ++ " not supported")
 
--- handles 1D for now
-eval (Grad g) = g
-eval (GradPair g g') = eval g + eval g'
+-- TODO generalized
+-- eval (Grad g) = g
+-- eval (GradPair g g') = eval g + eval g'
 
--- df/dx at 2 = 3(2)^2 + 1 = 13
-f x = x * x * x  + x
+-- -- handles 1D for now (+ no scalars)
+-- f x = 3*x*x -- f' -> 3*(2+1)
 
-main = do
-    let g = grad 1 (f 2)
-    print $ show g
-    print $ show $ eval g -- 13
+-- main = do
+--     let g = grad 1 (f 2)
+--     print $ show g
+--     print $ show $ eval g -- 17
