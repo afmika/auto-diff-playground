@@ -7,14 +7,14 @@ instance Functor Value where
 -- Val (usual ops) (partial derivative so far)
 instance Num a => Num (Value a) where
     (+) (Val u du) (Val v dv) = Val (u + v) (du + dv)
-    (*) (Val u du) (Val v dv) = Val (u * v) (u * dv + v * du)
+    (*) (Val u du) (Val v dv) = Val (u * v) (v * du + u * dv)
     abs = fmap abs
     signum = fmap signum
     fromInteger n = Val (fromInteger n) 0
     negate = fmap negate
 
 instance Fractional a => Fractional (Value a) where
-  (/) (Val u du) (Val v dv) = Val (u /v) ((u * dv + v * du) / v^2)
+  (/) (Val u du) (Val v dv) = Val (u /v) ((v * du - u * dv) / v^2)
   recip (Val u du) = Val (1 / u) (-du / u^2)
   fromRational r = Val (fromRational r) 0
 
