@@ -57,7 +57,7 @@ d f (x, y) = (
     )
 
 {-
-    Since f = 4 - (x^2 + y^2)
+    Since f = 4x - (x^2 + y^2)
     Jacobian = [4-2x  -2y]
     Critical point at [2 0]
 -}
