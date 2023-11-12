@@ -8,7 +8,7 @@ instance Functor Value where
 instance Num a => Num (Value a) where
     (+) (Val u du) (Val v dv) = Val (u + v) (du + dv)
     (*) (Val u du) (Val v dv) = Val (u * v) (v * du + u * dv)
-    abs = fmap abs
+    abs (Val u du) = Val (abs u) (du * signum u)
     signum = fmap signum
     fromInteger n = Val (fromInteger n) 0
     negate = fmap negate
