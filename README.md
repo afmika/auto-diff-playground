@@ -7,4 +7,5 @@ Automatic differentiation playground
 - [ ] Reverse autodiff generalized
 
 ## Resources
-* https://en.wikipedia.org/wiki/Automatic_differentiation
+* [Automatic Differentiation](https://en.wikipedia.org/wiki/Automatic_differentiation)
+* [Automatic differentiation in machine learning: a survey](https://arxiv.org/abs/1502.05767)https://arxiv.org/abs/1502.05767
