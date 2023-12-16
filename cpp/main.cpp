@@ -65,7 +65,10 @@ void linearReg() {
 }
 
 int main() {
-  // basicExample();
+#ifdef BASIC
+  basicExample();
+#else
   linearReg();
+#endif
   return 0;
 }
