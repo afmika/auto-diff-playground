@@ -40,7 +40,7 @@ void linearReg() {
 
   // y = ax + b, find a, b such that E(a, b) is minimal
 
-  int steps = 200;
+  int steps = 100;
   float rate = 0.1;
   expr a = val_named(distr(engine), "A");
   expr b = val_named(distr(engine), "B");
@@ -54,6 +54,8 @@ void linearReg() {
     // computes dE/da, dE/db
     // err->reset();
     err->backward();
+
+    std::cout << "Step " << i << ":" << err->v << '\n';
 
     // update
     a = val_named(a->v - a->g * rate, a->name);
