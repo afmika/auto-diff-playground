@@ -55,13 +55,14 @@ void linearReg() {
     // err->reset();
     err->backward();
 
-    std::cout << "Step " << i << ":" << err->v << '\n';
+    std::cout << "Step " << i << ": error " << err->v << '\n';
 
     // update
     a = val_named(a->v - a->g * rate, a->name);
     b = val_named(b->v - b->g * rate, b->name);
   }
-  std::cout << "y = " << a->v << "x + " << b->v;
+
+  std::cout << "y = " << float(*a) << "x + " << float(*b);
 }
 
 int main() {

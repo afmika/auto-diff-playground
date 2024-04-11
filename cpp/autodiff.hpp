@@ -30,6 +30,9 @@ public:
     // eg. f(x) = x * x => x is referenced 2 times! gx = g_left + g_right
     g += seed;
   }
+
+  inline operator float() const { return v; }
+  inline explicit operator double() const { return (double)v; }
 };
 
 #define BIN_OP(CLS, NAME, OP, DERIVATIVE_A, DERIVATIVE_B)                      \

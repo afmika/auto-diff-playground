@@ -4,7 +4,7 @@ TARGET = main
 
 define compile_all
 	$(CC) $(CFLAGS) $(TARGET).cpp -o $(TARGET) $(1)
-	$(TARGET)
+	./$(TARGET)
 endef
 
 linreg:
