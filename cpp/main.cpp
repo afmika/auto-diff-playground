@@ -28,11 +28,11 @@ void linearReg() {
 
   // dataset
   std::vector<std::pair<expr, expr>> points = {
-      // Apple
+      // Apples
       {val(1), val(2)},
       {val(2), val(2.5)},
       {val(2), val(3.5)},
-      // Orange
+      // Oranges
       {val(2), val(1.5)},
       {val(1), val(1)},
       {val(4), val(3.5)},
@@ -55,7 +55,8 @@ void linearReg() {
     // err->reset();
     err->backward();
 
-    std::cout << "Step " << i << ": error " << err->v << '\n';
+    if (i % 20 == 0)
+      std::cout << "Step " << i << ": error " << err->v << '\n';
 
     // update
     a = val_named(a->v - a->g * rate, a->name);

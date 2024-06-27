@@ -20,19 +20,20 @@ public:
 
   inline void reset() {
     this->g = 0;
-    for (auto &d : deps)
+    for (const auto &d : deps)
       d->reset();
   }
+
   inline void backward() { backward(1); }
   virtual void backward(float seed) {
     // everytime this node is referenced through
     // node->backward(deriv), cumulate the derivatives
-    // eg. f(x) = x * x => x is referenced 2 times! gx = g_left + g_right
     g += seed;
   }
 
   inline operator float() const { return v; }
   inline explicit operator double() const { return (double)v; }
+
 };
 
 #define BIN_OP(CLS, NAME, OP, DERIVATIVE_A, DERIVATIVE_B)                      \
@@ -53,14 +54,14 @@ public:
     expr a, b;                                                                 \
   }
 
-#define UNARY_OP(CLS, NAME, OP, DERIVATIVE_A)                                  \
+#define UNARY_OP(CLS, NAME, OP, DERIVATIVE)                                    \
   class CLS : public Node {                                                    \
   public:                                                                      \
     CLS(expr a) : Node(OP(a->v), NAME), a(a) { deps = {a}; }                   \
     void backward(float seed) override {                                       \
       float av = a->v;                                                         \
       g = seed;                                                                \
-      a->backward(DERIVATIVE_A);                                               \
+      a->backward(DERIVATIVE);                                                 \
     }                                                                          \
                                                                                \
   private:                                                                     \
